@@ -47,3 +47,17 @@ npm install @reduxjs/toolkit
     npm i eslint-plugin-simple-import-sort
 ```
 
+### Setting up the Redux store and toolkit for the app
+```
+const initialState = {
+    isLoggedIn:localStorage.getItem('isLoggedIn')||false,
+    role:localStorage.getItem('role')||"",
+    data:localStorage.getItem('date')||{}
+};
+const authSlice = createSlice({
+    name:"auth",
+    initialState,
+    reducers:{},
+});
+
+```
