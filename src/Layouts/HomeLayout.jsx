@@ -5,6 +5,8 @@ import {FiMenu} from 'react-icons/fi';
 import {AiFillCloseCircle} from 'react-icons/ai';
 import Footer from '../Components/Footer';
 import { Link, useNavigate } from 'react-router-dom';
+import {logout} from '../Redux/Slices/AuthSlices';
+import toast from 'react-hot-toast';
 
  
 function changeWidth(){
@@ -18,19 +20,20 @@ function hideDrawer(){
     changeWidth();
 }
 
-async function handleLogout(e){
-    e.preventDefault();
 
-    // const ress = await dispatch(logout());
-    // if(res?.payload?.success){
-
-    // }
-    navigate('/');
-
-}
 
 function Homelayout({children}) {
 
+    async function handleLogout(e){
+        e.preventDefault();
+    
+        const res = await dispatch(logout());
+        if(res?.payload?.success){
+        navigate('/');
+            
+        }
+    
+    }
     const dispatch = useDispatch();
     const navigate = useNavigate();
 

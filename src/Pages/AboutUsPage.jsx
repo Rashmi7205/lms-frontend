@@ -6,9 +6,6 @@ import aboutImage from '../assets/images/image2.png';
 import celebrities from '../Constants/celebrityData';
 
 function AboutUsPage() {
-
- console.log(celebrities)
-
     return (
     <HomeLayout>
         <div className='pl-20 pt-20 flex flex-col items-center text-white w-full gap-10'>
