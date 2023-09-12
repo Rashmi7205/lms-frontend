@@ -4,6 +4,7 @@ import HomeLayout from '../Layouts/HomeLayout';
 import {Link,useNavigate} from 'react-router-dom';
 import { useDispatch } from 'react-redux/es/exports';
 import { toast } from 'react-hot-toast';
+import { createAccount } from '../Redux/Slices/AuthSlices';
 
 function Signup() {
 
@@ -44,7 +45,7 @@ function Signup() {
         }
     }
 
-    function createNewAccount(event){
+    async function createNewAccount(event){
         event.preventDefault();
         if(!signUpData.email || !signUpData.password||!signUpData.fullName || !signUpData.avatar){
             toast.error("Please fill all the field");
@@ -55,8 +56,8 @@ function Signup() {
             toast.error("Name must be atleast 5 character");
             return;
         }
-        if(signUpData.email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
-            toast.error("Invalid Email id");
+        if(!signUpData.email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)){
+            toast.error(`Invalid Email id${signUpData.email}`);
             return ;
         }
         if(signUpData.password.match(/^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{6,}$/
@@ -64,6 +65,26 @@ function Signup() {
             toast.error("password contains at least one symbol and is at least 6 characters long");
             return;
         }
+
+        const formData = new FormData();
+        formData.append('fullName',signUpData.fullName);
+        formData.append('email',signUpData.email);
+        formData.append('password',signUpData.password);
+        formData.append('avatar',signUpData.avatar);
+
+        // dispatch create event action
+
+        const response =  await dispatch(createAccount(formData));
+     
+        if(response.payload.success)
+            navigate('/');
+
+        setSignUpdata({
+            fullName:"",
+        email:"",
+        password:"",
+        avatar:"",
+        });
     }
 
   return ( 

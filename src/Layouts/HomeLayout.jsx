@@ -100,7 +100,7 @@ function Homelayout({children}) {
                  {
                     isLoggedIn && <li className='absolute bottom-4 w-[90%]'>
                         <div className='w-full'>
-                            <Link to='/login'>
+                            <Link to='/profile'>
                                 <button className='btn-primary px-4 py-2 font-semibold rounded-md '>
                                    profile
                                 </button>
